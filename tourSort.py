@@ -27,21 +27,12 @@ while True:
 
     # If no date filer is selected, send all tours that match the game type
     if filters['startFilter'] is None and filters['endFilter'] is None:
-
         if filters['gameFilter'] is None:
             socket.send_json(sorted_tours)
-
-        elif filters['gameFilter'] == 'melee':
+        else:
             for tour in sorted_tours:
-                if tour['game'] == 'melee' or tour['game'] == 'both':
+                if tour['game'] == ['gameFilter'] or tour['game'] == 'both':
                     tours_requested.append(tour)
-            socket.send_json(tours_requested)
-
-        elif filters['gameFilter'] == 'ultimate':
-            for tour in sorted_tours:
-                if tour['game'] == 'ultimate' or tour['game'] == 'both':
-                    tours_requested.append(tour)
-            socket.send_json(tours_requested)
 
     # If there is a start date filter, but no end date filter, return the tours such that startFilter <= tour
     elif filters['startFilter'] is not None and filters['endFilter'] is None:
